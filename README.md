@@ -23,7 +23,7 @@ running at once.
 ## Tech Stack
 
 - **Java 21** (Amazon Corretto)
-- **Spring Boot 3.x** — REST API, JPA
+- **Spring Boot 4.x** — REST API, JPA
 - **Redis** — atomic rate limiting counters, inventory locks, waiting-room queue
 - **PostgreSQL** — persistent storage for orders, users, events
 - **Docker / Docker Compose** — local development environment
