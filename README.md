@@ -5,7 +5,9 @@ inventory management, and virtual queueing under load — the kind of problem re
 platforms (Ticketmaster-style "on-sale" drops) face when thousands of users hit "Buy" in the same
 second.
 
-> 🚧 **Status:** Early development — currently working through Phase 1 (basic API skeleton).
+> 🚧 **Status:** Early development — local environment fully set up (Docker Compose, Postgres, Redis,
+> Spring Boot all verified working end-to-end). Currently in **Phase 1**: `Event` and `Ticket` JPA
+> entities are written; CRUD endpoints (`EventController`) are next.
 
 ## Why This Project
 
@@ -65,7 +67,10 @@ running at once.
 
 ## Roadmap
 
-- [ ] **Phase 1** — Basic API skeleton (Event/Ticket entities, CRUD endpoints, Postgres connection)
+- [x] **Phase 1a** — Local environment setup (Docker Compose for Postgres + Redis, `application.yml`
+      wired up, app boots and connects to both successfully)
+- [ ] **Phase 1b** — Basic API skeleton (`Event`/`Ticket` entities ✅ written, CRUD endpoints,
+      naive purchase endpoint — *in progress*)
 - [ ] **Phase 2** — Naive rate limiting (Fixed Window Counter via Redis)
 - [ ] **Phase 3** — Atomic concurrency-safe purchasing (Redis Lua scripts, no overselling under load)
 - [ ] **Phase 4** — Upgraded rate limiting algorithms (Sliding Window Log, Token Bucket)
@@ -86,11 +91,17 @@ running at once.
 # Start Redis and Postgres
 docker compose up -d
 
+# Confirm both are healthy before starting the app
+docker compose ps
+
 # Run the app
 ./mvnw spring-boot:run
 ```
 
-The app will start on `http://localhost:8080`.
+The app will start on `http://localhost:8080`. Confirm it's up with:
+```bash
+curl http://127.0.0.1:8080/actuator/health
+```
 
 ## License
 
