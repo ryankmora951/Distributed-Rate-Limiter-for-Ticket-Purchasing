@@ -34,24 +34,24 @@ running at once.
 ## Architecture
 
 ```
-                        ┌─────────────────────┐
+                        ┌──────────────────────┐
                         │   Client / Postman   │
                         └──────────┬───────────┘
                                    │ HTTPS
                         ┌──────────▼───────────┐
-                        │   Load Balancer        │
+                        │   Load Balancer      │
                         └──────────┬───────────┘
-                 ┌─────────────────┼─────────────────┐
-        ┌────────▼───────┐ ┌───────▼────────┐ ┌───────▼────────┐
-        │ Spring Boot App │ │ Spring Boot App │ │ Spring Boot App │  (stateless instances)
-        └────────┬────────┘ └───────┬────────┘ └───────┬────────┘
+                 ┌─────────────────┼──────────────────┐
+        ┌────────▼────────┐┌───────▼─────────┐┌───────▼─────────┐
+        │ Spring Boot App ││ Spring Boot App │| Spring Boot App │  (stateless instances)
+        └────────┬────────┘└────────┬────────┘└─────────┬───────┘
                  └──────────────────┼───────────────────┘
                      ┌──────────────▼──────────────┐
-                     │           Redis              │  ← rate limits, inventory locks, queue
+                     │           Redis             │  ← rate limits, inventory locks, queue
                      └──────────────┬──────────────┘
                      ┌──────────────▼──────────────┐
-                     │        PostgreSQL             │  ← orders, users, events (source of truth)
-                     └───────────────────────────────┘
+                     │        PostgreSQL           │  ← orders, users, events (source of truth)
+                     └─────────────────────────────┘
 ```
 
 ## Core Components

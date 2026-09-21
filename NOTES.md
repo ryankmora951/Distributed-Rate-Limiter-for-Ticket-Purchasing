@@ -114,10 +114,16 @@ through.
   - healthchecks let other tools later on know when Postgres/Redis can accept connections
 
 # application.yml file important info
-  - ddl-auto: update <-- tells Hibernate to auto-create/alter tables based on @Entity classes, but only used for early development. Want to switch to Flyway or Liquibase migrations before AWS to ensure destructive schema changes by Hibernate not made
+  - ddl-auto: update <-- tells Hibernate to auto-create/alter tables based on @Entity classes, but only used for early 
+  'development. Want to switch to Flyway or Liquibase migrations before AWS to ensure destructive schema changes by Hibernate not made
   - localhost <-- since app runs directly in WSL and Docker Compose publishes the ports to my host, localhost works here
 
-  - **IMPORTANT DEBUGGING LESSON**: stale build cache masks config fixes: Maven's spring-boot:run does incremental builds — it skips recompiling if .class files in target/ look up-to-date by timestamp, even if the compiler config (pom.xml) changed since they were built. This can make a real fix appear not to work. When a build error doesn't match what your current config says it should be, run ./mvnw clean spring-boot:run — clean deletes target/ entirely, forcing a full fresh recompile
+  - **IMPORTANT DEBUGGING LESSON**: stale build cache masks config fixes: Maven's spring-boot:run does incremental builds — it 
+  skips recompiling if .class files in target/ look up-to-date by timestamp, even if the compiler config (pom.xml) changed since they were built. 
+  This can make a real fix appear not to work. When a build error doesn't match what your current config says it should be, 
+  run ./mvnw clean spring-boot:run — clean deletes target/ entirely, forcing a full fresh recompile
   - Hanging request usually means something upstream is blocked, not that the request path is broken.
   
-  - Issue Today: I chased what looked like a networking issue — checked IPv6 resolution, checked Windows Firewall, checked VPN interference — before realizing the actual dependency was down and the app was blocking indefinitely waiting on it.
+# Issue Today: 
+  - I chased what looked like a networking issue — checked IPv6 resolution, checked Windows Firewall, 
+  checked VPN interference — before realizing the actual dependency was down and the app was blocking indefinitely waiting on it.
